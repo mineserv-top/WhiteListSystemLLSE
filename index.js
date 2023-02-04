@@ -7,13 +7,16 @@ discordModals(client)
 const Discord = require('discord.js')
 const config = require('./config.json')
 const comms = require("./cmds.js")
+const crdb = new JsonConfigFile('./plugins/nodejs/WhiteListSystemLLSE/data/DB.json')
+crdb.init('c',0)
 const db = require('qjson-db')
-client.db = new db('./data/DB.json')
+client.db = new db('./plugins/nodejs/WhiteListSystemLLSE/data/DB.json')
 client.discord = Discord
 client.config = config 
 var token = config.token
 const prefix = config.prefix
 //=============-DISCORD BOT LOGIN-=============
+console.log(process.cwd())
 client.login(token)
 //===================-EVENTS-==================
 const interactionCreate = require('./events/interactionCreate.js')
