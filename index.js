@@ -16,7 +16,6 @@ client.config = config
 var token = config.token
 const prefix = config.prefix
 //=============-DISCORD BOT LOGIN-=============
-console.log(process.cwd())
 client.login(token)
 //===================-EVENTS-==================
 const interactionCreate = require('./events/interactionCreate.js')
