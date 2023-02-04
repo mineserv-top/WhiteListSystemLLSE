@@ -9,7 +9,7 @@ module.exports = {
             const time = new Date()
             var str = mc.runcmdEx(cmd)
             console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mВыполняется команда > \x1b[33m'+cmd+'\x1b[0m')
-            console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mОтвет > \x1b[33m'+str+'\x1b[0m')
+            console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mОтвет > \x1b[33m'+str.output+'\x1b[0m')
           }
         if (!interaction.isButton()) return
         if (interaction.customId == "requestEmbed"){
