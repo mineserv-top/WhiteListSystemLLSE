@@ -1,5 +1,6 @@
 //============-MineServ WL BY Alpha-============
 //===================-VAR`S-====================
+ll.registerPlugin('WhiteListSystemLLSE', 'Удобная система заявок для серверов с вайтлистом использующих LLBDS от MineServ', [1,0,0])
 const {Client} = require('discord.js');
 const client = new Client({ intents: 32767 })
 const discordModals = require('discord-modals')
