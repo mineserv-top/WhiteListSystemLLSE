@@ -2,13 +2,13 @@
 module.exports = {
     name: 'ready',
     async execute(client){
-        const {MessageEmbed, MessageActionRow, MessageButton} = require('discord.js')
+        const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
         setTimeout(() => {
             sendmsg()
         }, 3000)
         var sendChannel = client.channels.cache.get(client.config.mainEmbedChannel)
         time = new Date()
-        console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mБот \x1b[33m'+client.user.username+' \x1b[36mзапустился.\x1b[0m')
+        logger.info('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mБот \x1b[33m'+client.user.username+' \x1b[36mзапустился.\x1b[0m')
         function clearOldMessages(sendChannel,nbr){
             return sendChannel.messages.fetch({limit: 99}).then(messages => {
                 messages = messages.filter(msg => (msg.author.id == client.user.id && !msg.system))
@@ -47,8 +47,8 @@ async function sendmsg(){
         return startmessage
     }
     await clearOldMessages(sendChannel, 0)
-    const embed = new MessageEmbed()
-    .setColor('#00ffe1')
+    const embed = new EmbedBuilder()
+    .setColor('#00bd6d')
     .setAuthor(
         {
         name: 'Подать Заявку'
@@ -59,13 +59,13 @@ async function sendmsg(){
         {
             text: client.config.footerText
         })
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
             .setCustomId('requestEmbed')
             .setLabel('Подать Заявку')
-            .setEmoji(':tyanka:898590397285171211')
-            .setStyle('SUCCESS')
+            .setEmoji('📝')
+            .setStyle(ButtonStyle.Success)
             )
             sendChannel.send(
                 {
