@@ -1,10 +1,10 @@
 const conf = require('./config.json')
-const {MessageEmbed} = require('discord.js')
+const { EmbedBuilder, PermissionsBitField } = require('discord.js')
 const prefix = conf.prefix
+const time = new Date()
 var t = 0
 //=====WhiteList====
 function sendCmd(cmd,type,msg){
-  const time = new Date()
   if(type == '0'){
     var str = mc.runcmdEx(cmd)
     console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mЧерез Discord выполнена команда | ответ > \x1b[33m'+str.output+'\x1b[0m')
@@ -21,7 +21,7 @@ function sendCmd(cmd,type,msg){
 function wladd(r, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
-  if (!nickname || !msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+  if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
   else{
     var cmd = conf.WhiteList.add.replaceAll('$user',nickname)
     sendCmd(cmd,'1',msg)
@@ -34,7 +34,7 @@ function wladd(r, msg){
 function wlrem(r, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
- if (!nickname || !msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+ if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
  else{
     var cmd = conf.WhiteList.rem.replaceAll('$user',nickname)
     sendCmd(cmd,'1',msg)
@@ -48,7 +48,7 @@ function wlrem(r, msg){
 function wlban(r, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
-  if (!nickname || !msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+  if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
   else{
     var cmd = conf.WhiteList.ban.replaceAll('$user',nickname)
     sendCmd(cmd,'1',msg)
@@ -62,7 +62,7 @@ function wlban(r, msg){
 function wlunban(r, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
- if (!nickname || !msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+ if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
  else{
   var cmd = conf.WhiteList.unban.replaceAll('$user',nickname)
   sendCmd(cmd,'1',msg)
@@ -76,7 +76,7 @@ function wlunban(r, msg){
 function wlcmd(r, msg){
   const arggs = msg.content.split(' ').slice(1)
   const cmd = arggs.join(' ')
-  if (!cmd || !msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+  if (!cmd || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
   else{
     sendCmd(cmd,'0',msg)
     msg.channel.send({
@@ -85,9 +85,9 @@ function wlcmd(r, msg){
   }
 }
 function wlhelp(r, msg){
- if (!msg.member.permissions.has("ADMINISTRATOR")) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+ if (!msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
  else{
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
   .setColor('#00ffe1')
   .setAuthor(
     {
