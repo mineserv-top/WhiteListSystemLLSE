@@ -3,19 +3,20 @@ module.exports = {
     name: 'modalSubmit',
     async execute(modal, client, message, guild){
         const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js')
+        var conf = client.config
         if(modal.customId === 'requestModal'){
             const requestsChan = client.channels.cache.get(client.config.requestsChannel)
             const nicksChan = client.channels.cache.get(client.config.nicknamesChannel)
 
-            const nickResponse = modal.getTextInputValue('nickInput')
-            const nameResponse = modal.getTextInputValue('nameInput')
-            const cheatsResponse = modal.getTextInputValue('cheatsInput')
-            const findResponse = modal.getTextInputValue('findInput')
-            const buildResponse = modal.getTextInputValue('buildInput')
+            const nickname = modal.getTextInputValue('input1')
+            const responce2 = modal.getTextInputValue('input2')
+            const responce3 = modal.getTextInputValue('input3')
+            const responce4 = modal.getTextInputValue('input4')
+            const responce5 = modal.getTextInputValue('input5')
 
-            client.db.set(modal.channel.id, nickResponse)
+            client.db.set(modal.channel.id, nickname)
 
-            modal.member.setNickname(nickResponse).catch((e)=>{console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[31mERROR \x1b[37m| \x1b[36mПроизошла Ошибка > \x1b[31m'+e+'\x1b[0m')})            
+            modal.member.setNickname(nickname).catch((e)=>{console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[31mERROR \x1b[37m| \x1b[36mПроизошла Ошибка > \x1b[31m'+e+'\x1b[0m')})            
             const adminEmbed = new EmbedBuilder()
             .setColor('#00bd6d')
             .setAuthor({
@@ -24,24 +25,24 @@ module.exports = {
             .setDescription('**Ник участника: <@'+modal.user.id+'>, канал: <#'+modal.channel.id+'>\nДля принятия / отклонения заявки перейдите к каналу.**')
             .addFields(
                 { 
-                    name: 'Никнейм Игрока:', 
-                    value: '`'+nickResponse+'`',
+                    name: 'Никнейм:', 
+                    value: '`'+nickname+'`',
                 },
                 { 
-                    name: 'Имя / Возраст Игрока:',
-                    value: '`'+nameResponse+'`',
+                    name: conf.WhiteList.Question2.Label+':',
+                    value: '`'+responce2+'`',
                 },
                 { 
-                    name: 'Отношение к Читам:',
-                    value: '`'+cheatsResponse+'`',
+                    name: conf.WhiteList.Question3.Label+':',
+                    value: '`'+responce3+'`',
                 },
                 { 
-                    name: 'Как нашёл сервер:',
-                    value: '`'+findResponse+'`',
+                    name: conf.WhiteList.Question4.Label+':',
+                    value: '`'+responce4+'`',
                 },
                 { 
-                    name: 'Цель на Проекте:',
-                    value: '`'+buildResponse+'`',
+                    name: conf.WhiteList.Question5.Label+':',
+                    value: '`'+responce5+'`',
                 },
                 )
                 .setThumbnail(modal.user.avatarURL())
@@ -65,7 +66,7 @@ module.exports = {
                 .setAuthor({
                     name: 'Никнейм Участника'
                 })
-                .setDescription('**Discord: <@'+modal.user.id+'> игровой ник: '+nickResponse+'**')
+                .setDescription('**Discord: <@'+modal.user.id+'> игровой ник: '+nickname+'**')
                 .setThumbnail(modal.user.avatarURL())
                 .setFooter({
                     text: client.config.footerText
@@ -82,24 +83,24 @@ module.exports = {
                 .setDescription('**Заявка была отправлена админам на рассмотрение! Пожалуйста ожидайте!**')
                 .addFields(
                     { 
-                        name: 'Никнейм Игрока:', 
-                        value: '`'+nickResponse+'`',
+                        name: 'Никнейм:', 
+                        value: '`'+nickname+'`',
                     },
                     { 
-                        name: 'Имя / Возраст Игрока:',
-                        value: '`'+nameResponse+'`',
+                        name: conf.WhiteList.Question2.Label+':',
+                        value: '`'+responce2+'`',
                     },
                     { 
-                        name: 'Отношение к Читам:',
-                        value: '`'+cheatsResponse+'`',
+                        name: conf.WhiteList.Question3.Label+':',
+                        value: '`'+responce3+'`',
                     },
                     { 
-                        name: 'Как нашёл сервер:',
-                        value: '`'+findResponse+'`',
+                        name: conf.WhiteList.Question4.Label+':',
+                        value: '`'+responce4+'`',
                     },
                     { 
-                        name: 'Цель на Проекте:',
-                        value: '`'+buildResponse+'`',
+                        name: conf.WhiteList.Question5.Label+':',
+                        value: '`'+responce5+'`',
                     },
                     )
                 .setThumbnail(client.config.thumbImage)

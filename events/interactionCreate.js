@@ -77,31 +77,31 @@ module.exports = {
         .setTitle('Заполните Анкету')
         .addComponents(
             new TextInputComponent()
-            .setCustomId('nickInput')
+            .setCustomId('input1')
             .setLabel(conf.WhiteList.Question1.Label)
             .setPlaceholder(conf.WhiteList.Question1.Placeholder)
             .setStyle(conf.WhiteList.Question1.Style)
             .setRequired(true),
             new TextInputComponent()
-            .setCustomId('nameInput')
+            .setCustomId('input2')
             .setLabel(conf.WhiteList.Question2.Label)
             .setPlaceholder(conf.WhiteList.Question2.Placeholder)
             .setStyle(conf.WhiteList.Question2.Style)
             .setRequired(true),
             new TextInputComponent()
-            .setCustomId('cheatsInput')
+            .setCustomId('input3')
             .setLabel(conf.WhiteList.Question3.Label)
             .setPlaceholder(conf.WhiteList.Question3.Placeholder)
             .setStyle(conf.WhiteList.Question3.Style)
             .setRequired(true),
             new TextInputComponent()
-            .setCustomId('findInput')
+            .setCustomId('input4')
             .setLabel(conf.WhiteList.Question4.Label)
             .setPlaceholder(conf.WhiteList.Question4.Placeholder)
             .setStyle(conf.WhiteList.Question4.Style)
             .setRequired(true),
             new TextInputComponent()
-            .setCustomId('buildInput')
+            .setCustomId('input5')
             .setLabel(conf.WhiteList.Question5.Label)
             .setPlaceholder(conf.WhiteList.Question5.Placeholder)
             .setStyle(conf.WhiteList.Question5.Style) //'SHORT' or 'LONG'
@@ -212,7 +212,7 @@ module.exports = {
             })
             setTimeout(() => {
                 const delChan = client.channels.cache.get(interaction.channel.id)
-                delChan.delete()
+                delChan.delete().catch((e)=>{console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[31mERROR \x1b[37m| \x1b[36mПроизошла Ошибка > \x1b[31m'+e+'\x1b[0m')})
                 client.db.delete(interaction.channel.id)
             }, 10000)
         }
