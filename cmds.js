@@ -23,7 +23,7 @@ function wladd(r, msg){
   const nickname = arggs.join(' ')
   if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
   else{
-    var cmd = conf.WhiteList.add.replaceAll('$user',nickname)
+    var cmd = conf.WhiteList.addCommand.replaceAll('$user',nickname)
     sendCmd(cmd,'1',msg)
     msg.channel.send({
       content: '**Игрок с ником "'+nickname+'" успешно добавлен в вайтлист!**',
@@ -50,7 +50,7 @@ function wlban(r, msg){
   const nickname = arggs.join(' ')
   if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
   else{
-    var cmd = conf.WhiteList.ban.replaceAll('$user',nickname)
+    var cmd = conf.WhiteList.banCommand.replaceAll('$user',nickname)
     sendCmd(cmd,'1',msg)
     msg.channel.send({
       content: '**Игрок с ником "'+nickname+'" успешно забанен!**',
@@ -64,7 +64,7 @@ function wlunban(r, msg){
   const nickname = arggs.join(' ')
  if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
  else{
-  var cmd = conf.WhiteList.unban.replaceAll('$user',nickname)
+  var cmd = conf.WhiteList.unbanCommand.replaceAll('$user',nickname)
   sendCmd(cmd,'1',msg)
   msg.channel.send({
     content: '**Игрок с ником "'+nickname+'" успешно разбанен!**',
