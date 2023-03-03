@@ -20,7 +20,7 @@ module.exports = {
             }).then((r) => {
                 client.db.set(conf.guildId,r.id)
                 console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mРоль \x1b[33m'+r.id+' \x1b[36mсоздана.\x1b[0m')
-            })
+            }).catch((e)=>{console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[31mERROR \x1b[37m| \x1b[36mПроизошла Ошибка > \x1b[31m'+e+'\x1b[0m')})
         }
         function clearOldMessages(sendChannel,nbr){
             return sendChannel.messages.fetch({limit: 99}).then(messages => {
