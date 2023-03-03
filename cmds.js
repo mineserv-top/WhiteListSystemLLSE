@@ -18,11 +18,10 @@ function sendCmd(cmd,type,msg){
     console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mОтвет > \x1b[33m'+str.output+'\x1b[0m')
   }
 }
-function wladd(r, msg){
+function wladd(client, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
-  if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator) || !msg.member.roles.cache.has(r.db.get(conf.guildId))) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
-  else{
+  if (msg.member.permissions.has(PermissionsBitField.Flags.Administrator) || msg.member.roles.cache.has(client.db.get(conf.guildId))){
     var cmd = conf.WhiteList.addCommand.replaceAll('$user',nickname)
     sendCmd(cmd,'1',msg)
     msg.channel.send({
@@ -30,12 +29,14 @@ function wladd(r, msg){
     })
     console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mИгрок \x1b[33m'+nickname+' \x1b[36mбыл добавлен в вайтлист!\x1b[0m')
   }
+  else{
+    msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+  }
 }
-function wlrem(r, msg){
+function wlrem(client, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
- if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator) || !msg.member.roles.cache.has(r.db.get(conf.guildId))) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
- else{
+  if (msg.member.permissions.has(PermissionsBitField.Flags.Administrator) || msg.member.roles.cache.has(client.db.get(conf.guildId))){
     var cmd = conf.WhiteList.rem.replaceAll('$user',nickname)
     sendCmd(cmd,'1',msg)
     console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mИгрок \x1b[33m'+nickname+' \x1b[36mбыл удалён из вайтлиста!\x1b[0m')
@@ -43,9 +44,12 @@ function wlrem(r, msg){
       content: '**Игрок с ником "'+nickname+'" успешно удалён из вайтлиста!**',
     })
   }
+  else{
+    msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+  }
 }
 //=====BANS====
-function wlban(r, msg){
+function wlban(client, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
   if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
@@ -59,7 +63,7 @@ function wlban(r, msg){
   }
 }
 
-function wlunban(r, msg){
+function wlunban(client, msg){
   const arggs = msg.content.split(' ').slice(1)
   const nickname = arggs.join(' ')
  if (!nickname || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
@@ -73,7 +77,7 @@ function wlunban(r, msg){
   }
 }
 
-function wlcmd(r, msg){
+function wlcmd(client, msg){
   const arggs = msg.content.split(' ').slice(1)
   const cmd = arggs.join(' ')
   if (!cmd || !msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
@@ -84,10 +88,9 @@ function wlcmd(r, msg){
     })
   }
 }
-function wlhelp(r, msg){
- if (!msg.member.permissions.has(PermissionsBitField.Flags.Administrator)) return msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
- else{
-  const embed = new EmbedBuilder()
+function wlhelp(client, msg){
+  if (msg.member.permissions.has(PermissionsBitField.Flags.Administrator) || msg.member.roles.cache.has(client.db.get(conf.guildId))){
+    const embed = new EmbedBuilder()
   .setColor('#00ffe1')
   .setAuthor(
     {
@@ -113,6 +116,9 @@ function wlhelp(r, msg){
         embeds: [embed]
       }
     )
+  }
+  else{
+    msg.channel.send({content: '**У вас нет прав на выполнение команды!**',})
   }
 }
 var comms_list = [
