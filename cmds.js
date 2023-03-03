@@ -30,7 +30,7 @@ function wladd(client, msg){
     console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mИгрок \x1b[33m'+nickname+' \x1b[36mбыл добавлен в вайтлист!\x1b[0m')
   }
   else{
-    msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+    msg.channel.send({content: '**У вас нет прав на выполнение команды!**',})
   }
 }
 function wlrem(client, msg){
@@ -45,7 +45,7 @@ function wlrem(client, msg){
     })
   }
   else{
-    msg.channel.send({content: '**У вас нет прав на выполнение команды, либо вы допустили ошибку!**',})
+    msg.channel.send({content: '**У вас нет прав на выполнение команды!**',})
   }
 }
 //=====BANS====
