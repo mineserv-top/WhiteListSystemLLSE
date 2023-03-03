@@ -6,9 +6,22 @@ module.exports = {
         setTimeout(() => {
             sendmsg()
         }, 3000)
-        var sendChannel = client.channels.cache.get(client.config.mainEmbedChannel)
+        const conf = client.config
+        var sendChannel = client.channels.cache.get(conf.mainEmbedChannel)
         time = new Date()
-        logger.info('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mБот \x1b[33m'+client.user.username+' \x1b[36mзапустился.\x1b[0m')
+        console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mБот \x1b[33m'+client.user.username+' \x1b[36mзапустился.\x1b[0m')
+        if(!client.db.get(conf.guildId)){
+            client.guilds.cache.get(conf.guildId).roles.create({
+                data: {
+                    name: 'WhiteList',
+                    color: conf.moderatorRoleCollor
+                },
+                reason: 'Создание роли для принятия заявок в Discord'
+            }).then((r) => {
+                client.db.set(conf.guildId,r.id)
+                console.log('\x1b[1m\x1b[33m'+time+' \x1b[37m| \x1b[32mINFO \x1b[37m| \x1b[36mРоль \x1b[33m'+r.id+' \x1b[36mсоздана.\x1b[0m')
+            })
+        }
         function clearOldMessages(sendChannel,nbr){
             return sendChannel.messages.fetch({limit: 99}).then(messages => {
                 messages = messages.filter(msg => (msg.author.id == client.user.id && !msg.system))
@@ -48,16 +61,16 @@ async function sendmsg(){
     }
     await clearOldMessages(sendChannel, 0)
     const embed = new EmbedBuilder()
-    .setColor('#00bd6d')
+    .setColor(conf.embedCollor)
     .setAuthor(
         {
         name: 'Подать Заявку'
         })
     .setDescription('**Нажмите на кнопку ниже, чтобы подать заявку для входа на сервер!**')
-    .setThumbnail(client.config.thumbImage)
+    .setThumbnail(conf.thumbImage)
     .setFooter(
         {
-            text: client.config.footerText
+            text: conf.footerText
         })
         const row = new ActionRowBuilder()
         .addComponents(
