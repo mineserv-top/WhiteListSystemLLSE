@@ -4,7 +4,7 @@ module.exports = {
     async execute(interaction, client){
         const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType, PermissionsBitField } = require('discord.js')
         const { Modal, TextInputComponent, showModal } = require('discord-modals')
-        var conf = client.config
+        const conf = client.config
           function sendCmd(cmd){
             const time = new Date()
             var str = mc.runcmdEx(cmd)
@@ -30,7 +30,7 @@ module.exports = {
                     allow: [PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel],
                 },
                 {
-                    id: conf.adminRole,
+                    id: client.db.get(conf.guildId),
                     allow: [PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel],
                 },
                 {
@@ -44,7 +44,7 @@ module.exports = {
                     ephemeral: true
                 })
                 const embed = new EmbedBuilder()
-                .setColor('#00bd6d')
+                .setColor(conf.embedCollor)
                 .setAuthor(
                     {
                         name: 'Заявка Создана'
@@ -154,7 +154,7 @@ module.exports = {
         }
         if (interaction.customId == "deleteChan"){
             const embed = new EmbedBuilder()
-                .setColor('#00bd6d')
+                .setColor(conf.embedCollor)
                 .setAuthor({
                     name: 'Удаление Заявки'
                 })
@@ -183,7 +183,7 @@ module.exports = {
         }
         if (interaction.customId == "not"){
             const embed = new EmbedBuilder()
-            .setColor('#00bd6d')
+            .setColor(conf.embedCollor)
             .setAuthor({
                 name: 'Удаление Заявки'
             })
@@ -198,7 +198,7 @@ module.exports = {
         }
         if (interaction.customId == "yes"){
             const embed = new EmbedBuilder()
-            .setColor('#00bd6d')
+            .setColor(conf.embedCollor)
             .setAuthor({
                 name: 'Удаление Заявки'
             })
